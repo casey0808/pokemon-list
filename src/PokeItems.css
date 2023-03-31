@@ -37,6 +37,7 @@
 
 .btnRow {
   display: flex;
+  justify-content: center;
 }
 
 .prevBtn,
