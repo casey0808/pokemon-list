@@ -1,9 +1,8 @@
 import { useRequest } from "ahooks";
-import React, { useCallback, useEffect, useMemo, useState } from "react";
+import React, { memo, useState } from "react";
 import { getAllPokemons, getAllTypes, getCertainType } from "./apis";
 import "./App.css";
 import { TTypes } from "./constants";
-import ReactPaginate from "react-paginate";
 import PokeItems from "./PokeItems";
 
 function App() {
@@ -56,31 +55,37 @@ function App() {
 
   return (
     <div className="App">
-      <header className="header">
-        <div className="typeHeader">
-          <span className="title">Types:</span>
-          <div className="types">
-            {allTypes?.map((each: TTypes) => (
-              <div
-                className="tag"
-                id={each.name}
-                key={each.url}
-                onClick={() => handleClick(each.name)}
-              >
-                {each.name}
-              </div>
-            ))}
-          </div>
-        </div>
-        <div className="count">{pokeData?.length} results found.</div>
-      </header>
-      {getAllLoading || getCertainLoading ? (
-        <>Loading</>
+      {getTypesLoading ? (
+        <>Loading...</>
       ) : (
-        <PokeItems itemsPerPage={48} items={pokeData} />
+        <div>
+          <header className="header">
+            <div className="typeHeader">
+              <span className="title">Types:</span>
+              <div className="types">
+                {allTypes?.map((each: TTypes) => (
+                  <div
+                    className="tag"
+                    id={each.name}
+                    key={each.url}
+                    onClick={() => handleClick(each.name)}
+                  >
+                    {each.name}
+                  </div>
+                ))}
+              </div>
+            </div>
+            <div className="count">{pokeData?.length} results found.</div>
+          </header>
+          {getAllLoading || getCertainLoading ? (
+            <>Loading...</>
+          ) : (
+            <PokeItems itemsPerPage={48} items={pokeData} />
+          )}
+        </div>
       )}
     </div>
   );
 }
 
-export default App;
+export default memo(App);
