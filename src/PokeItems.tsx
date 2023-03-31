@@ -39,7 +39,6 @@ function PokeItems({
   const endOffset = itemOffset + itemsPerPage;
   console.log(`Loading items from ${itemOffset} to ${endOffset}`);
   const currentItems = items?.slice(itemOffset, endOffset);
-  console.log("currentItems", currentItems);
   const pageCount = Math.ceil(items?.length / itemsPerPage);
 
   // Invoke when user click to request another page.

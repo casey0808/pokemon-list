@@ -19,7 +19,7 @@ function App() {
   const { data: allPokemons, loading: getAllLoading } = useRequest(
     async () => await getAllPokemons(),
     {
-      refreshDeps: [type],
+      refreshDeps: [],
       onSuccess: (data) => {
         setPokeData(data);
       },
@@ -44,6 +44,7 @@ function App() {
     if (element?.classList.contains("selected")) {
       element?.classList.remove("selected");
       setType(null);
+      setPokeData(allPokemons);
     } else {
       const allElements = document.querySelectorAll(".tag");
       allElements?.forEach((each) => each?.classList.remove("selected"));
@@ -56,7 +57,7 @@ function App() {
   return (
     <div className="App">
       {getTypesLoading ? (
-        <>Loading...</>
+        <div className="loading">Loading...</div>
       ) : (
         <div>
           <header className="header">
@@ -75,10 +76,12 @@ function App() {
                 ))}
               </div>
             </div>
-            <div className="count">{pokeData?.length} results found.</div>
+            {!getAllLoading && !getCertainLoading && (
+              <div className="count">{pokeData?.length} results found.</div>
+            )}
           </header>
           {getAllLoading || getCertainLoading ? (
-            <>Loading...</>
+            <div className="loading">Loading...</div>
           ) : (
             <PokeItems itemsPerPage={48} items={pokeData} />
           )}
