@@ -1,4 +1,4 @@
-# pokemon-list
+# Pokemon-list
 This is a pokemon list built with vite, react, typescript and css, using data from the [pokemon API](https://pokeapi.co/).
 
 
