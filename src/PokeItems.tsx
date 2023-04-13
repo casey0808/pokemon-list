@@ -1,19 +1,24 @@
-import React, { useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import ReactPaginate from "react-paginate";
 import "./PokeItems.css";
+import { PokemonTypes } from "./typings";
 
-function Items({ currentItems }: any) {
+function Items({ currentItems }: { currentItems: Array<PokemonTypes> }) {
   const imgUrlBase =
     "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork";
   return (
     <div className="items">
-      {currentItems?.map((item: any) => {
+      {currentItems?.map((item: PokemonTypes) => {
         const url = item?.url;
         const arr = url?.trim().split(/\/+/);
         const index = arr[arr?.length - 2];
         return (
           <div className="item" key={item.url}>
-            <img src={`${imgUrlBase}/${index}.png`} className="img" alt={item.name} />
+            <img
+              src={`${imgUrlBase}/${index}.png`}
+              className="img"
+              alt={item.name}
+            />
             <p>{item?.name}</p>
           </div>
         );
@@ -25,10 +30,10 @@ function Items({ currentItems }: any) {
 function PokeItems({
   itemsPerPage,
   items,
-  type
+  type,
 }: {
   itemsPerPage: number;
-  items: any;
+  items: Array<PokemonTypes>;
   type: Array<string>;
 }) {
   // Here we use item offsets; we could also use page offsets
@@ -38,9 +43,9 @@ function PokeItems({
   // if type changes, reset page num
   useEffect(() => {
     setItemOffset(0);
-    const element = document.querySelector('.prevBtn');
-    element?.classList.add('disabled')
-  }, [type])
+    // const element = document.querySelector(".prevBtn");
+    // element?.classList.add("disabled");
+  }, [type]);
 
   // Simulate fetching items from another resources.
   // (This could be items from props; or items loaded in a local state

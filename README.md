@@ -3,7 +3,7 @@ This is a pokemon list built with vite, react, typescript and css, using data fr
 
 
 ### Libraries
-- [ahooks](https://ahooks.js.org/)
+- [react-query](https://www.npmjs.com/package/react-query)
 - [react-paginate](https://www.npmjs.com/package/react-paginate)
 
 ## Deliverables

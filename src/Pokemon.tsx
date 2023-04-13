@@ -1,12 +1,12 @@
 import { memo, useMemo, useState } from "react";
 import { getAllPokemons, getAllTypes, getCertainType } from "./apis";
 import "./App.css";
-import { TTypes } from "./constants";
 import PokeItems from "./PokeItems";
 import { useQuery, useQueries } from "react-query";
+import { PokemonTypes } from "./typings";
 
 function Pokemon() {
-  const [type, setType] = useState([]);
+  const [type, setType] = useState<Array<string>>([]);
 
   // get all types
   const { data: allTypes, isLoading: getTypesLoading } = useQuery(
@@ -37,7 +37,7 @@ function Pokemon() {
       setType((prevState) => prevState.filter((each) => each !== type));
     } else {
       element?.classList.add("selected");
-      setType((prevState): any => [...prevState, type]);
+      setType((prevState) => [...prevState, type]);
     }
   };
 
@@ -49,11 +49,11 @@ function Pokemon() {
       useCertainQueries?.length &&
       useCertainQueries?.every((each) => each.isSuccess)
     ) {
-      let customData: any = [];
+      let customData: Array<PokemonTypes> = [];
       useCertainQueries?.map((each) => {
         const { data, status } = each;
         if (status === "success") {
-          data?.map((d: { pokemon: TTypes }) => {
+          data?.map((d: { pokemon: PokemonTypes }) => {
             customData.push(d.pokemon);
           });
         }
@@ -72,7 +72,7 @@ function Pokemon() {
             <div className="typeHeader">
               <span className="title">Types:</span>
               <div className="types">
-                {allTypes?.map((each: TTypes) => (
+                {allTypes?.map((each: PokemonTypes) => (
                   <div
                     className="tag"
                     id={each.name}
