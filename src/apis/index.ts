@@ -20,7 +20,7 @@ export const getAllPokemons = async () => {
   return res?.results;
 };
 
-export const getCertainType = async (type: string | null) => {
+export const getCertainType = async (type: string | null): Promise<any> => {
   const res = await (
     await fetch(`${baseUrl}/type/${type}`, {
       method: "GET",

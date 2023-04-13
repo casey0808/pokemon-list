@@ -8,9 +8,9 @@ function Items({ currentItems }: any) {
   return (
     <div className="items">
       {currentItems?.map((item: any) => {
-        const url = item.url;
-        const arr = url.trim().split(/\/+/);
-        const index = arr[arr.length - 2];
+        const url = item?.url;
+        const arr = url?.trim().split(/\/+/);
+        const index = arr[arr?.length - 2];
         return (
           <div className="item" key={item.url}>
             <img src={`${imgUrlBase}/${index}.png`} className="img" alt={item.name} />
@@ -25,13 +25,22 @@ function Items({ currentItems }: any) {
 function PokeItems({
   itemsPerPage,
   items,
+  type
 }: {
   itemsPerPage: number;
   items: any;
+  type: Array<string>;
 }) {
   // Here we use item offsets; we could also use page offsets
   // following the API or data you're working with.
   const [itemOffset, setItemOffset] = useState(0);
+
+  // if type changes, reset page num
+  useEffect(() => {
+    setItemOffset(0);
+    const element = document.querySelector('.prevBtn');
+    element?.classList.add('disabled')
+  }, [type])
 
   // Simulate fetching items from another resources.
   // (This could be items from props; or items loaded in a local state
